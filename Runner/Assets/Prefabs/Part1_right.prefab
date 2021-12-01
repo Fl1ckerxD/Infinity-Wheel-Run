@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4988905861082690829}
-  m_Mesh: {fileID: 5869761508291144630, guid: 1fdc787a4aeca4647bb13aee99e17db2, type: 3}
+  m_Mesh: {fileID: 5869761508291144630, guid: 2c32449c4f315fb4a88e8b5faaa99ce7, type: 3}
 --- !u!23 &6790543143916606680
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -91,6 +91,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: House
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285079601839360166, guid: 2b64eeb01e3dbb24ba162fef77085a24,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7949449141760037404, guid: 2b64eeb01e3dbb24ba162fef77085a24,
         type: 3}

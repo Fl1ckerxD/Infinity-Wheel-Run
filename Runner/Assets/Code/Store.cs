@@ -13,6 +13,7 @@ public class Store : MonoBehaviour
     public GameObject[] counts;
     public GameObject[] buyButtons;
     public GameObject[] wearButtons;
+    public GameObject[] selectedIcon;
     private void Start()
     {
         Wear(skin);
@@ -38,8 +39,10 @@ public class Store : MonoBehaviour
         for (int i = 0; i < skinPlayer.Length; i++)
         {
             skinPlayer[i].SetActive(false);
+            selectedIcon[i].SetActive(false);
         }
         skinPlayer[color].SetActive(true);
+        selectedIcon[color].SetActive(true);
         skin = color;
     }
   
