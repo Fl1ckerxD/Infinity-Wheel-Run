@@ -5,8 +5,9 @@ using UnityEngine;
 public class SwitchController : MonoBehaviour
 {
     public static bool tap, swipeLeft, swipeRight, swipeUp, swipeDown;
-    private bool isDraging = false;
-    private Vector2 startTouch, swipeDelta;
+    private bool _isDraging = false;
+    private Vector2 _startTouch;
+    private Vector2 _swipeDelta;
 
     private void Update()
     {
@@ -15,12 +16,12 @@ public class SwitchController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             tap = true;
-            isDraging = true;
-            startTouch = Input.mousePosition;
+            _isDraging = true;
+            _startTouch = Input.mousePosition;
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            isDraging = false;
+            _isDraging = false;
             Reset();
         }
         #endregion
@@ -31,33 +32,33 @@ public class SwitchController : MonoBehaviour
             if (Input.touches[0].phase == TouchPhase.Began)
             {
                 tap = true;
-                isDraging = true;
-                startTouch = Input.touches[0].position;
+                _isDraging = true;
+                _startTouch = Input.touches[0].position;
             }
             else if (Input.touches[0].phase == TouchPhase.Ended || Input.touches[0].phase == TouchPhase.Canceled)
             {
-                isDraging = false;
+                _isDraging = false;
                 Reset();
             }
         }
         #endregion
 
-        //Просчитать дистанцию
-        swipeDelta = Vector2.zero;
-        if (isDraging)
+        // Просчитать дистанцию
+        _swipeDelta = Vector2.zero;
+        if (_isDraging)
         {
             if (Input.touches.Length < 0)
-                swipeDelta = Input.touches[0].position - startTouch;
+                _swipeDelta = Input.touches[0].position - _startTouch;
             else if (Input.GetMouseButton(0))
-                swipeDelta = (Vector2)Input.mousePosition - startTouch;
+                _swipeDelta = (Vector2)Input.mousePosition - _startTouch;
         }
 
-        //Проверка на пройденность расстояния
-        if (swipeDelta.magnitude > 100)
+        // Проверка на пройденность расстояния
+        if (_swipeDelta.magnitude > 100)
         {
-            //Определение направления
-            float x = swipeDelta.x;
-            float y = swipeDelta.y;
+            // Определение направления
+            float x = _swipeDelta.x;
+            float y = _swipeDelta.y;
             if (Mathf.Abs(x) > Mathf.Abs(y))
             {
 
@@ -79,10 +80,9 @@ public class SwitchController : MonoBehaviour
         }
 
     }
-
     private void Reset()
     {
-        startTouch = swipeDelta = Vector2.zero;
-        isDraging = false;
+        _startTouch = _swipeDelta = Vector2.zero;
+        _isDraging = false;
     }
 }

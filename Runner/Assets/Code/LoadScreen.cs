@@ -1,19 +1,19 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class LoadScreen : MonoBehaviour
 {
-    public static int sceneID;
-
-    public Slider loadSlider;
+    public static int sceneID; // ID загрузочной сцены
+    public Slider loadSlider; // Загрузачная полоса
 
     private void Start()
     {
         StartCoroutine(LoadNextScene());
     }
+
+    // Загрузка следующей сцены
     IEnumerator LoadNextScene()
     {
         AsyncOperation oper = SceneManager.LoadSceneAsync(sceneID);

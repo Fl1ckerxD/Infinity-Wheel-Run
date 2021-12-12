@@ -1,17 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
+    /// <summary>
+    /// Объекты спавна
+    /// </summary>
     public GameObject[] tilePrefabs;
-    private List<GameObject> tiles = new List<GameObject>();
-    private float spawnPos = 0;
+    private List<GameObject> _tiles = new List<GameObject>();
+    private float _spawnPos = 0;
     [SerializeField] private float tileLength = 100;
     [SerializeField] private bool isHouseSpawn;
 
     public Transform player;
     [SerializeField] private int startTiles = 6;
+
+    // Спавн первых объектов
     void Start()
     {
         for(int i = 0; i<startTiles; i++)
@@ -23,10 +27,9 @@ public class Generator : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(player.position.z - 60 > spawnPos - (startTiles * tileLength))
+        if(player.position.z - 60 > _spawnPos - (startTiles * tileLength)) // Если объект спавна находится позади игрока, то происходит удаление этого объекта и спавн нового уже перед игроком
         {
             if (!isHouseSpawn)
                 SpawnTile(Random.Range(0, tilePrefabs.Length), 0);
@@ -36,15 +39,19 @@ public class Generator : MonoBehaviour
             DeleteTile();
         }
     }
-    void SpawnTile(int tileindex, int euler) //transform.rotation
+
+    // Спавн объектов
+    void SpawnTile(int tileindex, int euler)
     {
-        GameObject tile = Instantiate(tilePrefabs[tileindex], transform.forward * spawnPos, Quaternion.Euler(euler, 0, 0));
-        tiles.Add(tile);
-        spawnPos += tileLength;
+        GameObject tile = Instantiate(tilePrefabs[tileindex], transform.forward * _spawnPos, Quaternion.Euler(euler, 0, 0));
+        _tiles.Add(tile);
+        _spawnPos += tileLength;
     }
+
+    // Удаление объектов
     void DeleteTile()
     {
-        Destroy(tiles[0]);
-        tiles.RemoveAt(0);
+        Destroy(_tiles[0]);
+        _tiles.RemoveAt(0);
     }
 }

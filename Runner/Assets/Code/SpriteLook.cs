@@ -1,11 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpriteLook : MonoBehaviour
 {
+    private Camera _cachedCamera;
+
+    // Кэширование камеры
+    private void Start()
+    {
+        _cachedCamera = Camera.main;
+    }
+
+    // Спрайт всегда повернут лицом к игроку
     void Update()
     {
-        transform.LookAt(Camera.main.transform.position, -Vector3.up);
+        transform.LookAt(_cachedCamera.transform.position, -Vector3.up);
     }
 }

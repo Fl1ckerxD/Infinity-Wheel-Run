@@ -1,32 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Audio sound;
-
-    private CharacterController controller;
+    private Audio _sound;
+    private CharacterController _controller;
     public GameObject deadPanel;
     public GameObject[] skinPlayer;
-    private Animator anim;
-    private Vector3 vec3;
-    public enum ControlType { Andorid, PC};
+    private Animator _anim;
+    private Vector3 _vec3;
+    public enum ControlType {Andorid, PC};
     public ControlType controlType;
 
+    /// <summary>
+    /// Параметры игрока
+    /// </summary>
     public int speed;
     public int jumpPower;
     private int numLine = 1;
     public float lineDistance = 4;
     public float gravity;
+
+    // Кэширование файлов
     void Start()
     {      
-        controller = GetComponent<CharacterController>();
-        anim = GetComponent<Animator>();
-        sound = FindObjectOfType<Audio>();
+        _controller = GetComponent<CharacterController>();
+        _anim = GetComponent<Animator>();
+        _sound = FindObjectOfType<Audio>();
         deadPanel.SetActive(false);
         Wear(Store.skin);
     }
+
+    // Перемещение игрока в зависимости от типа платформы
     private void Update()
     {
         if(controlType == ControlType.Andorid)
@@ -43,7 +47,7 @@ public class PlayerController : MonoBehaviour
             }
             if (SwitchController.swipeUp)
             {
-                if (controller.isGrounded)
+                if (_controller.isGrounded)
                     Jump();
             }
         }
@@ -62,7 +66,7 @@ public class PlayerController : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
             {
-                if (controller.isGrounded)
+                if (_controller.isGrounded)
                     Jump();
             }
         }
@@ -79,30 +83,35 @@ public class PlayerController : MonoBehaviour
         Vector3 diff = targetPosition - transform.position;
         Vector3 moveDir = diff.normalized * 25 * Time.deltaTime;
         if (moveDir.sqrMagnitude < diff.sqrMagnitude)
-            controller.Move(moveDir);
+            _controller.Move(moveDir);
         else
-            controller.Move(diff);
+            _controller.Move(diff);
     }
 
-    // Update is called once per frame
+    // Проявление гравитации на игорке
     void FixedUpdate()
     {
-        vec3.z = speed;
-        vec3.y += gravity * Time.fixedDeltaTime;
-        controller.Move(vec3 * Time.fixedDeltaTime);
-    }
-    private void Jump()
-    {
-        sound.Effects(3);
-        vec3.y = jumpPower;
+        _vec3.z = speed;
+        _vec3.y += gravity * Time.fixedDeltaTime;
+        _controller.Move(_vec3 * Time.fixedDeltaTime);
     }
 
+    // Прыжок
+    private void Jump()
+    {
+        _sound.Effects(3);
+        _vec3.y = jumpPower;
+    }
+
+    // Проигрыш 
     public void Dead()
     {
-        sound.Effects(2);
-        anim.SetTrigger("dead");
+        _sound.Effects(2);
+        _anim.SetTrigger("dead");
         deadPanel.SetActive(true);
     }
+
+    // Установка выбранного скина
     private void Wear(int color)
     {
         for (int i = 0; i < skinPlayer.Length; i++)

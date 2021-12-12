@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -7,13 +6,15 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class SaveAndLoad : MonoBehaviour
 {
     string filePath;
-    public List<GameObject> buttonsBuySaves = new List<GameObject>();
+    public List<GameObject> buttonsBuySaves = new List<GameObject>(); // Лист сохраненных кнопок
     private void Start()
     {
         filePath = Application.persistentDataPath + "/save.gamesave";
         LoadGame();
         GetComponent<Store>().ActiveButtons();
     }
+
+    // Сохранение
     public void SaveGame()
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -25,6 +26,8 @@ public class SaveAndLoad : MonoBehaviour
         bf.Serialize(fs, save);
         fs.Close();
     }
+
+    // Загрузка
     public void LoadGame()
     {
         if (!File.Exists(filePath))
@@ -45,7 +48,9 @@ public class SaveAndLoad : MonoBehaviour
     [System.Serializable]
     public class Save
     {
-        public List<bool> activeData = new List<bool>();     
+        public List<bool> activeData = new List<bool>();  
+        
+        // Запись кнопок в лист
         public void SaveButtons(List<GameObject> buttons)
         {
             foreach(GameObject button in buttons)

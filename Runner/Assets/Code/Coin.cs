@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")) // Если объект вошел в коллайдер и у него тег "Player", то подбирается монетка
         {
             Audio sound = FindObjectOfType<Audio>();
             sound.Effects(4);

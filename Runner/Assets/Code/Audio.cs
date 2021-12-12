@@ -1,17 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Audio : MonoBehaviour
 {
+    /// <summary>
+    /// Игровые звуки
+    /// </summary>
     public AudioClip[] clips;
-    private AudioSource audios;
+    private AudioSource _audios;
+
+    // Кэширование аудио
     private void Start()
     {
-        audios = GetComponent<AudioSource>();
+        _audios = GetComponent<AudioSource>();
     }
+
+    // Воспроизведение звука
     public void Effects(int i)
     {
-        audios.PlayOneShot(clips[i]);
+        _audios.PlayOneShot(clips[i]);
     }
 }

@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
-    private float score;
+    private float _score;
     public static int coins;
 
     public Text textScore;
@@ -18,18 +16,22 @@ public class UI : MonoBehaviour
         textScore.text = "0";
     }
 
-    // Update is called once per frame
+    // Увеличение очков
     void FixedUpdate()
     {
-        score += Time.fixedDeltaTime + 1;
-        textScore.text = score.ToString("F0");
+        _score += Time.fixedDeltaTime + 1;
+        textScore.text = _score.ToString("F0");
     }
+
+    // Увеличение денег
     public void CoinPlus()
     {
         coins++;
         textCoin.text = coins.ToString();
         PlayerPrefs.SetInt("Coins", coins);
     }
+
+    // Выключение кнопки "Пауза"
     public void OffButtonPause()
     {
         b_pause.SetActive(false);
